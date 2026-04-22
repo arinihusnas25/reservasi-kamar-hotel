@@ -34,8 +34,13 @@
                                 
                                         <a href="{{ route('admin.edit', $item->id) }}" class="btn text-primary btn-link py-0 px-2 text-decoration-none"><span class="fas fa-edit"></span> Edit</a>
                                         <a href="{{ route('admin.show', $item->id) }}" class="btn text-info btn-link py-0 px-2 text-decoration-none "><span class="fas fa-eye"></span> Detail</a>
-                                        <a href="#" class="btn text-danger btn-link py-0 px-2 text-decoration-none" onclick="actionToDelete('{{ route('admin.destroy', $item->id) }}')
-                                        "><span class="fas fa-trash"></span> Hapus</a>
+                                        <form action="{{ route('admin.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" onclick="return confirm('Yakin mau hapus?')" style="color:red; border:none; background:none;">
+                                                Hapus
+                                            </button>
+                                        </form>
                                     {{-- @endif --}}
                                 </td>
                             </tr>

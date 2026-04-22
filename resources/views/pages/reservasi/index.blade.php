@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Data kamar')
+@section('title', 'Data reservasi')
     
 
 @section('content')
     <div class="pt-2 pb-4">
-        <h3 class="fw-bold mb-3">Data kamar</h3>
+        <h3 class="fw-bold mb-3">Data reservasi</h3>
     </div>
 
-    <a href="{{ route('kamar.create') }}" class="btn btn-primary mb-3"><span class="fas fa-plus"></span> Tambah Baru</a>
+    <a href="{{ route('reservasi.create') }}" class="btn btn-primary mb-3"><span class="fas fa-plus"></span> Tambah Baru</a>
     
     <div class="card card-body">
         <div class="table-responsive">
@@ -16,27 +16,35 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nomor Kamar</th>
-                            <th>deskripsi</th>
-                            <th>harga</th>
-                            <th>Aksi</th>
+                            <th>user id</th>
+                            <th>kamar id</th>
+                            <th>tanggal check_in</th>
+                            <th>tanggal check_out</th>
+                            <th>total harga</th>
+                            <th>status</th>
+                            <th>aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kamar as $item)
+                        @foreach ($reservasi as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nomor_kamar }}</td>
-                                <td>{{ $item->deskripsi }}</td>
-                                <td>{{ $item->harga }}</td>
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->kamar->nomor_kamar }}</td>
+                                <td>{{ $item->tanggal_check_in }}</td>
+                                <td>{{ $item->tanggal_check_out }}</td>
+                                <td>{{ $item->total_harga }}</td>
+                                <td>
+                                    {{ $item->status ?? 'booking' }}
+                                </td>
                                 <td>
                                     @if($item->id == 1)
                                         <span class="text-muted">Tidak dapat diubah</span>
                                     @else
                                 
-                                        <a href="{{ route('kamar.edit', $item->id) }}" class="btn text-primary btn-link py-0 px-2 text-decoration-none"><span class="fas fa-edit"></span> Edit</a>
-                                        <a href="{{ route('kamar.show', $item->id) }}" class="btn text-info btn-link py-0 px-2 text-decoration-none "><span class="fas fa-eye"></span> Detail</a>
-                                        <a href="#" class="btn text-danger btn-link py-0 px-2 text-decoration-none" onclick="actionToDelete('{{ route('kamar.destroy', $item->id) }}')"><span class="fas fa-trash"></span> Hapus</a>
+                                        <a href="{{ route('reservasi.edit', $item->id) }}" class="btn text-primary btn-link py-0 px-2 text-decoration-none"><span class="fas fa-edit"></span> Edit</a>
+                                        <a href="{{ route('reservasi.show', $item->id) }}" class="btn text-info btn-link py-0 px-2 text-decoration-none "><span class="fas fa-eye"></span> Detail</a>
+                                        <a href="#" class="btn text-danger btn-link py-0 px-2 text-decoration-none" onclick="actionToDelete('{{ route('reservasi.destroy', $item->id) }}')"><span class="fas fa-trash"></span> Hapus</a>
                                     @endif
                                 </td>
                             </tr>
